@@ -58,7 +58,7 @@ function run() {
     console.log("Running Main Code");
 
     if (isIndexPage) {
-        Navigate("Home");
+        Navigate("Dashboard");
     }
 }
 

@@ -1,4 +1,8 @@
 
+function log(...log_txt) {
+    console.log(...log_txt);
+}
+
 function id(val) {
     return document.getElementById(val);
 }
@@ -48,6 +52,120 @@ function animateValue(start, end, duration, onUpdate, onComplete) {
     requestAnimationFrame(update);
 }
 
+function Toast(message,timeout) {
+    if(timeout == undefined){
+        timeout = 1500
+    }
+
+    // Create a new div element
+    var toastDiv = document.createElement("div");
+    toastDiv.classList.add("toast");
+    toastDiv.textContent = message;
+
+    // Append the div to the body
+    document.body.appendChild(toastDiv);
+
+    // Trigger slide-in animation
+    toastDiv.classList.add("slide-in");
+
+    // Trigger slide-out animation after 3 seconds
+    setTimeout(function() {
+        toastDiv.classList.remove("slide-in");
+        toastDiv.classList.add("slide-out");
+        
+        // Remove the toast from the DOM after the animation completes
+        setTimeout(function() {
+            toastDiv.remove();
+        }, 300);
+    }, timeout+1000);
+}
+
+function Dialog(title, description, buttons, onclick) {
+    // Create overlay
+    var overlay = document.createElement("div");
+    overlay.classList.add("overlay");
+    overlay.onclick = function(){}
+    document.body.appendChild(overlay);
+    
+    // Create dialog
+    var dialog = document.createElement("div");
+    dialog.classList.add("dialog");
+    
+    var titleElem = document.createElement("h2");
+    titleElem.textContent = title;
+    dialog.appendChild(titleElem);
+    
+    var descElem = document.createElement("p");
+    descElem.textContent = description;
+    dialog.appendChild(descElem);
+    
+    var buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("buttons");
+    dialog.appendChild(buttonContainer);
+    
+    buttons.forEach(function(button) {
+        var buttonElem = document.createElement("button");
+        buttonElem.textContent = button;
+        buttonElem.addEventListener("click", function() {
+            document.body.removeChild(dialog);
+            document.body.removeChild(overlay);
+            if(typeof onclick === 'function') onclick(button)
+        });
+        buttonContainer.appendChild(buttonElem);
+    });
+    
+    document.body.appendChild(dialog);
+}
+
+
+function getLoader(){
+    const loader_obj = id("loader")
+
+    if(loader_obj != null){
+        return loader_obj;
+    }
+
+    const loaderContainer = document.createElement('div');
+    loaderContainer.onclick = function(){}
+    loaderContainer.id = 'loader';
+    loaderContainer.classList.add('overlay');
+    loaderContainer.classList.add('loaderContainer');
+    document.body.appendChild(loaderContainer);
+
+    const loader = document.createElement('div');
+    loader.classList.add('loader');
+    document.body.appendChild(loaderContainer);
+
+    // Create loader elements dynamically
+    const innerOne = document.createElement('div');
+    innerOne.classList.add('inner', 'one');
+    loader.appendChild(innerOne);
+
+    const innerTwo = document.createElement('div');
+    innerTwo.classList.add('inner', 'two');
+    loader.appendChild(innerTwo);
+
+    const innerThree = document.createElement('div');
+    innerThree.classList.add('inner', 'three');
+    loader.appendChild(innerThree);
+
+    loaderContainer.appendChild(loader)
+    return loaderContainer;
+}
+
+function Loading(show_) {
+    getLoader()
+    if(show_ == true){
+        show("loader");
+    } else {
+        hide("loader");
+    }
+}
+
+function After(ms,callback) {
+    setTimeout(callback,ms);
+}
+
 // // Example usage:
 // const startValue = 0;
 // const endValue = 100;
@@ -77,53 +195,25 @@ function getMap(key) {
     }
 }
 
+
+
 //Login Preference Data
 function Login(data) {
     var UserData = {};
-
-    var firstName = "";
-    var lastName = "";
-    var phoneNumber = "";
-    if(data.phoneNumber != null){
-        phoneNumber = data.phoneNumber;
-    }
-
-    try{
-        [firstName, lastName] = user.displayName ? user.displayName.split(' ') : ['', ''];
-    } catch(e) {}
     
-    UserData.UID = data.uid;
-    UserData.Email = data.email;
-    UserData.Details = {
-        VerifiedEmail : data.emailVerified,
-        Photo : data.photoURL,
-        Contact : {
-            Phone : phoneNumber
-        },
-        Name : {
-            FullName : data.displayName,
-            FirstName : firstName,
-            LastName : lastName
-        }
-    }
-
+    UserData.UID = data.Id;
+    UserData.Email = data.Email;
+    UserData.Details = data.Details;
+    UserData.isLoggedIn = true;
+    
     const timeMs = new Date().getTime();
     UserData.LastLog = {
         TimeMs : timeMs,
         TimeStamp : convertMillisecondsToTimestamp(timeMs)
     }
     
-    UserData.isLoggedIn = true;
     storeMap(USER_DATA_STORE,UserData);
-    rdb.ref(USER_DATA_STORE_DB).child(UserData.UID).update(UserData);
-    db.collection(USER_DATA_STORE_DB).doc(UserData.UID).set({
-        Name : data.displayName,
-        Email : UserData.Email,
-        Phone : phoneNumber,
-        FirstName : firstName,
-        LastName : lastName,
-        Photo : data.photoURL,
-    });
+    rdb.ref(USER_DATA_STORE_RDB).child(UserData.UID).set(UserData);
 }
 
 function isLogedIn() {
@@ -145,7 +235,7 @@ function getUser() {
 function Logout() {
     signOut(function(){
         if(isLogedIn()){
-            rdb.ref(USER_DATA_STORE_DB).child(getUser().UID).update({
+            rdb.ref(USER_DATA_STORE_RDB).child(getUser().UID).update({
                 isLoggedIn : false
             });
             storeMap(USER_DATA_STORE,null);
@@ -160,27 +250,27 @@ function Logout() {
 }
 
 
-function getUserDataFromChatList(UID) {
-    var ChatList = getMap("ChatList");
+// function getUserDataFromChatList(UID) {
+//     var ChatList = getMap("ChatList");
 
-    for (let uid in ChatList) {
-        let data = ChatList[uid];
-        if(uid == UID){
-            return data;
-        }
-    }
+//     for (let uid in ChatList) {
+//         let data = ChatList[uid];
+//         if(uid == UID){
+//             return data;
+//         }
+//     }
     
-    return null;
-}
+//     return null;
+// }
 
-function setUserDataToChatList(UID,Data) {
-    var ChatList = getMap("ChatList");
-    if(ChatList == null){
-        ChatList = {};
-    }
-    ChatList[UID] = Data;
-    storeMap("ChatList",ChatList);
-}
+// function setUserDataToChatList(UID,Data) {
+//     var ChatList = getMap("ChatList");
+//     if(ChatList == null){
+//         ChatList = {};
+//     }
+//     ChatList[UID] = Data;
+//     storeMap("ChatList",ChatList);
+// }
 
 
 

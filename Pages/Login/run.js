@@ -1,115 +1,101 @@
 
-
-if (isLogedIn() == true) {
-    Navigate(getCurrentPage());
-}
-
-CurrentPage("Login");
-
-
-
-
 var logingIn = false;
 
+if(isLogedIn()) {
+    Loading(true);
+    After(3000,function(){
+        Navigate("Dashboard");
+    });
+}
+
 id("LOGIN_BUTTON").onclick = async function() {
+    
     if (logingIn == true) {
         return;
     }
-    const MailId = id("MailInput").value;
-    const Password = id("PasswordInput").value;
 
-    if (isNull(MailId)) {
-        showToast("Enter Mail Correctly");
+    const MailId = id("MailInput").value.trim();
+    const Password = id("PasswordInput").value.trim();
+
+    if (MailId.trim() == "") {
+        Toast("Enter E-Mail Correctly");
         return;
     }
+    
 
-    if (isNull(Password)) {
-        showToast("Enter Password Correctly");
+    if (Password.trim() == "") {
+        Toast("Enter Password Correctly");
         return;
     }
 
     logingIn = true;
-    show("loading");
-    const AccountData = await searchUserByEmail(MailId);
+    
+    Loading(true);
 
-    logingIn = false;
+    const result = await db.collection(USER_DATA_STORE_FDB).where("Mail", "==", MailId).get();
+    let Data = "";
+    if (result.empty) {
+        Data = null;
+    } else {
+        Data =  result.docs[0];
+    }
+
+    const AccountData = Data;
+
 
     if (AccountData == null) {
-        showToast("The Entered Mail Id Was InCorrect");
-        hide("loading");
+        Loading(false);
+        Toast("The Entered Mail Id Was InCorrect");
     } else {
+        
         var Account = AccountData.data();
         Account.id = AccountData.id;
 
-        if (isNull(Account.Password)) {
-            showDialog("Account Info", "Currently Password Was Not Set For This Mail(" + MailId + ").So Click Confirm To Set '" + Password + "' As Password", async function() {
-                hideDialog();
-
-                await db.collection("ALLUSERS").doc(Account.id).update({
-                    Password: Password
-                });
-                
-                signIn({
-                    Id: Account.id,
-                    Name: Account.Name,
-                    Mail: Account.Mail,
-                    Type: Account.Type,
-                    ProfileUrl : Account.ProfileUrl
-                });
-
-                CurrentPage("Auth");
-
-                //Log
-                Log("NEW", "(LogIn) " + (Account.Type == 0 ? "Admin" : "User") + " is Loged In " + Account.Name + " (" + MailId + ")");
-
-                //Log
-                Log("NEW", " Password Has been Choosen for " + Account.Name + " (" + MailId + ")");
-
-                CurrentPage("Login");
-
-                setTimeout(() => {
-                    Navigate("Home");
-                }, 1550);
-                showToast("Login Success");
-            }, function() {
-                showToast("Password Was Not Set");
-                hideDialog();
-                hide("loading");
-            })
+        if (Account.Password == undefined) {
+            Loading(false);
+            Dialog("Account Info", "Currently Password Was Not Set For This Mail(" + MailId + ").So Click Confirm To Set '" + Password + "' As Password",["Confirm","Cancel"],async function(option){
+                if(option == "Confirm"){
+                    Loading(true);
+                    await db.collection(USER_DATA_STORE_FDB).doc(Account.id).update({
+                        Password: Password
+                    });
+                    
+                    Login({
+                        Id: Account.id,
+                        Name: Account.Name,
+                        Email: Account.Mail,
+                        Details: Account
+                    });
+                    
+                    setTimeout(() => {
+                        Navigate("Dashboard");
+                    }, 1550);
+                    
+                    Toast("Login Success");
+                } else {
+                    Toast("Password Was Not Set");
+                }
+            });
         } else {
             if (Account.Password == Password) {
-
-                signIn({
+                Login({
                     Id: Account.id,
                     Name: Account.Name,
-                    Mail: Account.Mail,
-                    Type: Account.Type,
-                    ProfileUrl : Account.ProfileUrl
+                    Email: Account.Mail,
+                    Details: Account
                 });
 
-                CurrentPage("Auth");
-                //Log
-                Log("NEW", "(LogIn) " + (Account.Type == 0 ? "Admin" : "User") + " is Loged In " + Account.Name + " (" + Account.Mail + ")");
-                CurrentPage("Login");
-
                 setTimeout(() => {
-                    Navigate("Home");
+                    Navigate("Dashboard");
                 }, 1750);
-                showToast("Login Success");
+
+                Toast("Login Success");
             } else {
-                showToast("InCorrect Password");
-                hide("loading");
+                Loading(false);
+                Toast("InCorrect Password");
             }
         }
     }
-}
 
-async function searchUserByEmail(email) {
-    const MailIds = await db.collection("ALLUSERS").where("Mail", "==", email).get();
-    if (MailIds.empty) {
-        return null;
-    } else {
-        return MailIds.docs[0];
-    }
+    logingIn = false;
 }
-

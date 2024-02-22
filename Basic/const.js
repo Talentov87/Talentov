@@ -1,6 +1,7 @@
 //Constants
 const USER_DATA_STORE = "UserData";
-const USER_DATA_STORE_DB = "Globe_User_Data";
+const USER_DATA_STORE_RDB = "User_Data";
+const USER_DATA_STORE_FDB = "ALLUSERS";
 const INTENT_SHARABLE = "SharableDataPoint";
 const QuickSet = parse("QuickSet");
 const Intent = parse(INTENT_SHARABLE);
