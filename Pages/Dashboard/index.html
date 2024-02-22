@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../../Basic/basics.css">
+    <title>Workplace Dashboard</title>
+<style>
+    /* Resetting some default styles */
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f2f2f2;
+    }
+
+    /* Main container */
+    .container {
+        display: flex;
+    }
+
+    /* Left-side navigation */
+    .sidebar {
+        position: fixed;
+        height: 100%;
+        left: -200px;
+        top: 0px;
+        width: 200px;
+        background-color: rgba(255, 255, 255, 0.8); /* Updated background color to white with opacity */
+        backdrop-filter: blur(10px); /* Added backdrop-filter to create blur effect */
+        color: black; /* Updated text color to black */
+        padding-top: 30px;
+        z-index: 989;
+        overflow-y: auto; /* Added to enable scrolling if content exceeds sidebar height */
+    }
+
+    .sidebar .card {
+        
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.07);
+        padding: 10px; /* Increased padding */
+        width: calc(100% - 20px);
+        margin: 10px;
+        margin-bottom:20px; /* Adjusted margin */
+        display: flex;
+        justify-content: space-between; /* Align items horizontally */
+        align-items: center;
+        border-radius: 5px;
+        background-color: #ffffff; /* Updated card background color */
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card img:last-child {
+        margin-left: auto;
+    }
+
+    .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    
+
+    .sidebar h2 {
+        margin-bottom: 40px;
+        text-align: center; /* Center align the navigation header */
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 20px;
+    }
+
+    .main-content h1 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    header {
+        text-align: center;
+        font-size: large;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-bottom: 2px solid #ccc; /* Updated border color */
+        background-color: #f2f2f2; /* Updated background color */
+    }
+
+    .container {
+      height: calc(100% - 40px); /* Adjust this value based on your header height */
+      background-color: #f0f0f0;
+    }
+
+</style>
+</head>
+<body>
+
+<header>
+    <div style="display: flex; align-items: center;">
+        <img id="sidebarImg" src="../../Images/dashboard.png" width="30px" style="margin-right: 10px;"> <!-- Left-aligned image -->
+        <h2 style="margin: 0 auto;">Home</h2> <!-- Center-aligned text -->
+    </div>
+</header>
+
+<div id="container" class="container">
+    <iframe id="iframe" style="width: 100%;height: 100%;"></iframe>
+    <!-- <div class="main-content">
+        <h1>Welcome to Your Workplace Dashboard</h1>
+        <p>This is where you can manage your projects, tasks, schedule, and more.</p>
+    </div> -->
+</div>
+
+<div id="sidebar" class="sidebar">
+    <div style="text-align: center;"><h2>Navigation</h2></div>
+
+    <div class="card" onclick="Navigate('Home')">
+        <img src="../../Images/home.png" width="25px">&nbsp; Home &nbsp;<img src="../../Images/right-arrow.png" width="15px">
+    </div>
+    <div class="card" onclick="Navigate('Home2')">
+        <img src="../../Images/home.png" width="25px">&nbsp; Profile &nbsp;<img src="../../Images/right-arrow.png" width="15px">
+    </div>
+    <div class="card">
+        <img src="../../Images/home.png" width="25px">&nbsp; All Cvs &nbsp;<img src="../../Images/right-arrow.png" width="15px">
+    </div>
+    <div class="card">
+        <img src="../../Images/home.png" width="25px">&nbsp; Companies &nbsp;<img src="../../Images/right-arrow.png" width="15px">
+    </div>
+    <div class="card">
+        <img src="../../Images/home.png" width="25px">&nbsp; Reminders &nbsp;<img src="../../Images/right-arrow.png" width="15px">
+    </div>
+</div>
+
+</body>
+
+<script src="../../Basic/init.js"></script>
+<!-- <script src="run.js"></script> -->
+</html>

@@ -46,6 +46,9 @@ var scriptUrls = [
     'run.js'
 ];
 
+function getPath(page_name){
+    return URL_DOM + "Pages/" + page_name + "/index.html";
+}
 
 
 //Before Running Main Code run.js
