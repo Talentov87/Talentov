@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/x-icon" href="Basic/Images/TalentovLogo.png">
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        /* body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea, #764ba2, #6B8DD6, #667eea);
+            background-size: 400% 400%;
+             Adjusted background size 
+            animation: gradientBG 15s linear infinite;
+        } */
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
+
+        header {
+            /* background-color: #0077FF; */
+            padding: 10px;
+            color: #ffffff;
+            text-align: center;
+            /* position: fixed;
+            top: 0;
+            left: 0;
+            right: 0; */
+        }
+
+        .container {
+            max-width: 1000px;
+            /* margin: 100px auto; */
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 0px;
+            margin-top: 0px;
+            padding: 40px;
+        }
+
+
+        .profile-container {
+            text-align: center;
+            padding: 10px;
+            background-color: #F2F2F2;
+            border-radius: 20px;
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 2s ease;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background-color: rgba(245, 245, 245, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .profile-picture {
+            background-color: #FF6347;
+            width: fit-content;
+            padding: 5px;
+            border-radius: 10px;
+            height: fit-content;
+            margin: 0 auto 20px;
+            scale: 1.0;
+            -webkit-transition-duration: 1s;
+        }
+
+        .profile-picture:hover {
+            scale: 1.2;
+            -webkit-transition-duration: 1s;
+        }
+
+        .profile-name {
+            font-size: 32px;
+            color: #333333;
+            margin-bottom: 10px;
+        }
+
+        .profile-email {
+            font-size: 18px;
+            color: #666666;
+        }
+
+        .activity-bar {
+            width: 100%;
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .activity-level {
+            height: 100%;
+            background-color: #FF6347;
+            /* Vibrant Red color */
+            border-radius: 10px;
+            animation: progressBar 2s ease;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+
+        .button-card {
+            width: 200px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.3s ease;
+        }
+
+        .button-card.dashboard {
+            font-size: 30px;
+            background-color: #0077FF;
+        }
+
+        .button-card.active {
+            font-size: 30px;
+            background-color: #FF6666;
+        }
+
+        .button-card.signout {
+            font-size: 30px;
+            background-color: #0077FF;
+        }
+
+        .button-card:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes progressBar {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+    </style>
+    <!-- //header -->
+    <style>
+        .talentov-logo {
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .letter {
+            margin: 5px;
+            width: 50px;
+            height: 50px;
+            background-color: #0077FF;
+            border-radius: 10%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 25px;
+            color: #ffffff;
+            /* margin-bottom: 20px; */
+            animation: logoAnimation 2s infinite alternate;
+        }
+
+        @keyframes logoAnimation {
+            from {
+                transform: scale(1);
+                background-color: #FF6347;
+            }
+
+            to {
+                transform: scale(0.96);
+                background-color: #0077FF;
+            }
+        }
+
+        .l1 {
+            animation-delay: 0.0s;
+        }
+
+        .l2 {
+            animation-delay: 0.1s;
+        }
+
+        .l3 {
+            animation-delay: 0.2s;
+        }
+
+        .l4 {
+            animation-delay: 0.3s;
+        }
+
+        .l5 {
+            animation-delay: 0.4s;
+        }
+
+        .l6 {
+            animation-delay: 0.5s;
+        }
+
+        .l7 {
+            animation-delay: 0.6s;
+        }
+
+        .l8 {
+            animation-delay: 0.7s;
+        }
+    </style>
+    <!-- profile image -->
+    <style>
+        .profile-image-container {
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+            margin: auto;
+            margin-bottom: 10px;
+            border-radius: 50%;
+        }
+
+        #profileImg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+    <style>
+        .header {
+            position: relative;
+            /* background-color: #0077FF; */
+            padding: 10px;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+
+        #BackButton {
+            /* position: static; */
+        }
+
+        /* Material Card Styles */
+        .card {
+            display: inline-block;
+            width: 400px;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background-color: rgba(245, 245, 245, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .card:hover .card-title {
+            color: #ff5722;
+        }
+
+        .card-content {
+            font-size: 16px;
+            color: #555;
+        }
+
+        .card-actions {
+            margin-top: 20px;
+        }
+
+        .btn-card {
+            border-radius: 10px;
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #ff5722;
+            color: #fff;
+            text-decoration: none;
+            margin-right: 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .btn-card:hover {
+            background-color: #2196f3;
+            transform: translateY(-2px);
+        }
+
+        .line {
+            border: none;
+            border-top: 1px solid rgba(0, 0, 0, 0.5);
+            opacity: 0.5;
+            width: 100%;
+        }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="talentov-logo">
+            <div class="letter l1">T</div>
+            <div class="letter l2">A</div>
+            <div class="letter l3">L</div>
+            <div class="letter l4">E</div>
+            <div class="letter l5">N</div>
+            <div class="letter l6">T</div>
+            <div class="letter l7">O</div>
+            <div class="letter l8">V</div>
+
+        </div>
+    </header>
+    <div class="container">
+
+        <div class="profile-container" style="text-align: center;">
+
+            <div class="profile-image-container">
+                <img id="profileImg" src="Basic/Images/profile.png" alt="Profile Image">
+
+            </div>
+            <div id="profile" class="profile-picture">
+                <label for="fileInput">Change Image</label>
+                <input type="file" id="fileInput" onchange="onResumeSelected(event)" style="display: none;">
+            </div>
+
+
+            <!-- <div id="profile" class="profile-picture">
+
+                <label style="font-size:130px;" id="letterBig">J</label>
+
+            </div> -->
+            <h1 class="profile-name" id="NameText">...</h1>
+            <p class="profile-email" id="MailText">Loading...</p>
+            <div class="activity-bar">
+                <div class="activity-level"></div>
+            </div>
+            <div class="button-container">
+                <div class="button-card dashboard" id="DashboardButton" style="">Dashboard</div>
+                <div class="button-card active" id="StatusButton">...</div>
+                <div class="button-card signout" id="SignoutButton" style="">Sign Out</div>
+            </div>
+        </div>
+
+
+        <div style="margin-top: 10px;display: flex;">
+
+            <div class="button-card dashboard" id="pullUpdates"
+                style="font-size: 18px;height:30px;width:fit-content;padding: 8px;margin: 5px;display: none;">
+                Pull Updates</div>
+            <div class="button-card dashboard" id="pullOrigin"
+                style="font-size: 18px;height:30px;width:fit-content;padding: 8px;margin: 5px;">
+                Pull Origin</div>
+            <div class="button-card dashboard" id="ClockIN"
+                style="display: none;font-size: 18px;height:30px;width:fit-content;padding: 8px;margin: 5px;">
+                Clock In</div>
+            <div class="button-card dashboard" id="ClockOUT"
+                style="display: none;font-size: 18px;height:30px;width:fit-content;padding: 8px;margin: 5px;">
+                Clock Out</div>
+        </div>
+    </div>
+
+    <style>
+        #menuCard {
+            position: fixed;
+            left: 0px;
+            top: 100px;
+            margin-left: 100%;
+        }
+
+
+        #requestCard {
+            position: fixed;
+            left: 0px;
+            top: 240px;
+            margin-left: 100%;
+        }
+
+
+        @keyframes slideInUpLoading1 {
+            from {
+                margin-left: 100%;
+                opacity: 0;
+            }
+
+            to {
+                margin-left: 60%;
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutLoading1 {
+            from {
+                margin-left: 60%;
+                opacity: 1;
+            }
+
+            to {
+                margin-left: 100%;
+                opacity: 0;
+            }
+        }
+    </style>
+
+    <div class="card" id="menuCard">
+        <div class="card-title">Acheiver <b>
+                <div id="name"></div>
+            </b></div>
+        <div class="card-content" id="desc">
+            <div></div>
+            There are <txt id="countCv"></txt> CVs
+        </div>
+        <img id="achImage" alt="Your Image" style="width: 100%; height: auto;">
+        <div class="card-actions">
+            <a class="btn-card" style="background-color:blue" onclick="CloseAch()">Close</a>
+        </div>
+    </div>
+
+
+    <!-- Basics -->
+
+    <div id="loading" style="display: none;">
+        <div class="loadingout shimmer"
+            style="position: fixed;top: 0px; width: 100%;height: 100%; background-color: rgba(142, 71, 208, 0.8);">
+        </div>
+        <div class="loading-logo" style="position: fixed;">
+            <div class="loading-letter ll1">L</div>
+            <div class="loading-letter ll2">O</div>
+            <div class="loading-letter ll3">A</div>
+            <div class="loading-letter ll4">D</div>
+            <div class="loading-letter ll5">I</div>
+            <div class="loading-letter ll6">N</div>
+            <div class="loading-letter ll7">G</div>
+            <style>
+                .loading-logo {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+
+                #loading {
+                    animation: slideInUpLoading 1s alternate;
+                }
+
+
+                @keyframes slideInUpLoading {
+                    from {
+                        opacity: 0;
+                    }
+
+                    to {
+                        opacity: 1;
+                    }
+                }
+
+                .loading-letter {
+                    margin: 1px;
+                    width: 50px;
+                    height: 50px;
+                    background-color: #0077FF;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 25px;
+                    color: #ffffff;
+                    margin-bottom: 20px;
+                    animation: logoAnimationLoading 1.2s infinite alternate;
+                }
+
+                @keyframes logoAnimationLoading {
+                    from {
+                        transform: translateY(0);
+                        background-color: #FF6347;
+                    }
+
+                    to {
+                        transform: translateY(-30px);
+
+                        background-color: #0077FF;
+                    }
+                }
+
+                .ll1 {
+                    animation-delay: 0.0s;
+                }
+
+                .ll2 {
+                    animation-delay: 0.2s;
+                }
+
+                .ll3 {
+                    animation-delay: 0.4s;
+                }
+
+                .ll4 {
+                    animation-delay: 0.6s;
+                }
+
+                .ll5 {
+                    animation-delay: 0.8s;
+                }
+
+                .ll6 {
+                    animation-delay: 1.0s;
+                }
+
+                .ll7 {
+                    animation-delay: 1.2s;
+                }
+
+                .shimmer {
+                    background: linear-gradient(-45deg, transparent 30%, #7847FF 40%, #7847FF 20%, transparent 70%);
+                    background-size: 200%;
+                    background-repeat: no-repeat;
+                    animation: shimmer 2s linear infinite;
+                }
+
+                @keyframes shimmer {
+                    0% {
+                        background-position: 200% 0;
+                    }
+
+                    100% {
+                        background-position: -200% 0;
+                    }
+                }
+            </style>
+        </div>
+    </div>
+
+    <div id="requestDialog" style="display: none;">
+        <div id="deleteDialog" class="dialog">
+            <h2 id="diatitle">Confirm Delete</h2>
+            <p id="diadesc">Are you sure you want to delete this item?</p>
+            <div class="buttons">
+                <button id="diabut1" class="deleteButton">Confirm</button>
+                <button id="diabut2" class="cancelButton">Cancel</button>
+                <button id="diabut3" class="deleteButton">OK</button>
+            </div>
+        </div>
+        <div id="overlay"></div>
+    </div>
+    <div id="toastContainer"></div>
+    <script>
+
+        if (localStorage.loginProfileUrl == "undefined" || localStorage.loginProfileUrl == undefined || localStorage.loginProfileUrl == null || localStorage.loginProfileUrl == "null" || localStorage.loginProfileUrl == "") {
+            document.getElementById("profileImg").src = "Basic/Images/profile.png";
+        } else {
+            document.getElementById("profileImg").src = localStorage.loginProfileUrl;
+        }
+
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #BackButton {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+
+        body {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        .inp {
+            position: relative;
+            margin: auto;
+            width: 100%;
+            height: 30%;
+            max-width: 100px;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+
+        .inp .label {
+            position: absolute;
+            width: 100%;
+            top: 0px;
+            left: 12px;
+            white-space: nowrap;
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.5);
+            font-weight: 500;
+            transform-origin: 0 0;
+            transform: translate3d(0, 0, 0);
+            transition: all 0.2s ease;
+            pointer-events: none;
+        }
+
+        .inp .focus-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.05);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.2s ease;
+        }
+
+        .inp input,
+        .inp select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 100%;
+            border: 0;
+            font-family: inherit;
+            padding: 10px 12px 0 12px;
+            height: 45px;
+            font-size: 16px;
+            font-weight: 400;
+            background: rgba(0, 0, 0, 0.02);
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+            color: #000;
+            transition: all 0.15s ease;
+        }
+
+        .inp input:hover,
+        .inp select:hover {
+            background: rgba(0, 0, 0, 0.04);
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .inp input:not(:placeholder-shown)+.label,
+        .inp select:not(:placeholder-shown)+.label,
+        .inp input:focus+.label,
+        .inp select:focus+.label {
+            color: #0077FF;
+            transform: translate3d(0, -12px, 0) scale(0.75);
+        }
+
+        .inp input:focus+.label+.focus-bg,
+        .inp select:focus+.label+.focus-bg {
+            transform: scaleX(1);
+        }
+
+        /* Add these styles to handle the date input */
+        .inp input[type="date"]::-webkit-calendar-picker-indicator {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            width: auto;
+            height: auto;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        /* Style for the date picker dropdown */
+        .inp input[type="date"]::-webkit-datetime-edit-text {
+            padding: 10px 12px 0 12px;
+            height: 45px;
+            font-size: 16px;
+            font-weight: 400;
+            background: rgba(0, 0, 0, 0.02);
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+            color: #000;
+            transition: all 0.15s ease;
+        }
+
+        .inp input[type="date"]:hover::-webkit-datetime-edit-text {
+            background: rgba(0, 0, 0, 0.04);
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        .inp input[type="date"]:not(:placeholder-shown)+.label,
+        .inp input[type="date"]:focus+.label {
+            color: #0077FF;
+            transform: translate3d(0, -12px, 0) scale(0.75);
+        }
+
+        .inp input[type="date"]:focus+.label+.focus-bg {
+            transform: scaleX(1);
+        }
+
+        /* Style for the multiline text (textarea) input */
+        .inp textarea {
+            width: 99%;
+            border: 0;
+            font-family: inherit;
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: -10px;
+            background: rgba(0, 0, 0, 0.02);
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+            color: #000;
+            transition: all 0.15s ease;
+            resize: vertical;
+            /* Allow vertical resizing of the textarea */
+        }
+
+        .inp textarea:hover {
+            background: rgba(0, 0, 0, 0.04);
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+        }
+
+        /* Adjust label position and scale for non-empty textarea */
+        .inp textarea:not(:placeholder-shown)+.label {
+            color: black;
+            transform: translate3d(0, 30px, 0) scale(0.75);
+            transition: transform 0.2s ease;
+        }
+
+        /* Adjust label position and scale when textarea is focused */
+        .inp textarea:focus+.label {
+            color: black;
+            transform: translate3d(0, 30px, 0) scale(0.75);
+        }
+
+        /* Adjust focus background scale for focused textarea */
+        .inp textarea:focus+.label+.focus-bg {
+            transform: scaleX(1);
+        }
+
+
+
+
+        .button {
+            display: inline-block;
+            height: 50px;
+            width: fit-content;
+            background-color: #0077FF;
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+
+        .tablediv {
+            overflow-x: auto;
+        }
+
+        table {
+            background-color: #f0f5ff;
+            table-layout: fixed;
+            margin: 10px;
+            /* border-radius: 5px; */
+        }
+
+        th,
+        td {
+            padding: 8px;
+            white-space: nowrap;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            /* border-top-left-radius: 10px; */
+            /* border-top-right-radius: 10px; */
+        }
+
+        tr:nth-child(even) {
+            background-color: #eaf3ff;
+        }
+
+        tr:hover {
+            background-color: #b8daff;
+        }
+
+
+        .loadingin {
+            /* position: fixed;
+  top: 50%;
+  left: 50%; */
+            background: rgba(255, 255, 255, 1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 4px solid #ccc;
+            border-top-color: #007bff;
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .dialog {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #b8daff;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+            z-index: 9999;
+            opacity: 0;
+            animation: fade-in 0.3s ease forwards;
+        }
+
+        @keyframes fade-in {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .dialog h2 {
+            color: #007bff;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .dialog p {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .dialog .buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        .dialog button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .dialog button.deleteButton {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .dialog button.cancelButton {
+            background-color: #e9ecef;
+            color: #333;
+        }
+
+        #overlay,
+        #coverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+            backdrop-filter: blur(5px);
+        }
+
+        .head {
+            font-size: x-large;
+            width: 99.3%;
+            height: 5%;
+            text-align: center;
+            padding: 5px;
+            background-color: #b8daff;
+        }
+
+        /* Checkbox Styles */
+        .checkbox-container {
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 18px;
+            width: 18px;
+            background-color: #eee;
+            border-radius: 3px;
+            transition: background-color 0.2s ease;
+        }
+
+        .checkbox-container:hover .checkmark {
+            background-color: #ccc;
+        }
+
+        .checkbox-container input:checked~.checkmark {
+            background-color: #0077FF;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked~.checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+
+        /* Toast container */
+        #toastContainer {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+
+        /* Toast styles */
+        .toast {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            background-color: #FF7F7F;
+            /* Update background color here */
+            color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-family: 'Roboto', sans-serif;
+            font-size: 18px;
+            line-height: 1.4;
+            opacity: 0;
+            margin: 5px;
+            transform: translateY(100%);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            to {
+                opacity: 0;
+                transform: translateY(100%);
+            }
+        }
+
+
+
+        .noSpinners::-webkit-inner-spin-button,
+        .noSpinners::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .noSpinners {
+            -moz-appearance: textfield;
+            /* Firefox */
+        }
+
+        .bottomview {
+            background-color: rgba(184, 218, 255, 1);
+            position: fixed;
+            padding: 8px;
+            bottom: 0;
+            width: 100%;
+            height: fit-content;
+            text-align: center;
+            -webkit-transition-duration: 0.5s;
+        }
+
+        .buttoni {
+            margin: 5px;
+            width: 30px;
+            height: 30px;
+            -webkit-transition-duration: 0.5s;
+        }
+
+        .bottomview:hover {
+            background-color: rgba(184, 218, 255, 0.5);
+            /* height: 14%; */
+            -webkit-transition-duration: 0.5s;
+        }
+
+        .bottomview:hover .buttoni {
+            width: 45px;
+            height: 45px;
+            -webkit-transition-duration: 0.5s;
+        }
+
+        .buttoni:hover {
+            width: 50px;
+            height: 50px;
+            margin: 20px;
+            transform: scale(1.1);
+            /* Use 'transform' instead of 'scale' */
+            -webkit-transition-duration: 0.5s;
+        }
+    </style>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script src="Basic/LocalStorage.js"></script>
+    <script src="Basic/Common.js"></script>
+    <script src="Basic/Firebase.js"></script>
+    <script src="Run.js"></script>
+    <script>
+        //Navigator code
+        if (getCurrentPage() != "Login") {
+            if (isLogedIn() == false) {
+                Navigate("Login");
+            }
+        }
+    </script>
+</body>
+
+</html>
