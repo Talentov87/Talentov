@@ -118,8 +118,8 @@ function Dialog(title, description, buttons, onclick) {
 }
 
 
-function getLoader(){
-    const loader_obj = id("loader")
+function getLoader(nameLoader,parentContainer){
+    const loader_obj = id(nameLoader)
 
     if(loader_obj != null){
         return loader_obj;
@@ -127,10 +127,10 @@ function getLoader(){
 
     const loaderContainer = document.createElement('div');
     loaderContainer.onclick = function(){}
-    loaderContainer.id = 'loader';
+    loaderContainer.id = nameLoader;
     loaderContainer.classList.add('overlay');
     loaderContainer.classList.add('loaderContainer');
-    document.body.appendChild(loaderContainer);
+    parentContainer.appendChild(loaderContainer);
 
     const loader = document.createElement('div');
     loader.classList.add('loader');
@@ -153,12 +153,22 @@ function getLoader(){
     return loaderContainer;
 }
 
-function Loading(show_) {
-    getLoader()
-    if(show_ == true){
-        show("loader");
+function Loading(show_,element) {
+    var nameLoader = "";
+    var parentContainer = null;
+    if(element){
+        nameLoader = element + "Loader";
+        parentContainer = id(element);
     } else {
-        hide("loader");
+        nameLoader = "body" + "Loader";
+        parentContainer = document.body;
+    }
+    getLoader(nameLoader,parentContainer);
+
+    if(show_ == true){
+        show(nameLoader);
+    } else {
+        hide(nameLoader);
     }
 }
 
@@ -233,20 +243,15 @@ function getUser() {
 }
 
 function Logout() {
-    signOut(function(){
-        if(isLogedIn()){
-            rdb.ref(USER_DATA_STORE_RDB).child(getUser().UID).update({
-                isLoggedIn : false
-            });
-            storeMap(USER_DATA_STORE,null);
-            console.log("Logout Success");
-        } else {
-            console.log("Not Logged In")
-        }
-        
-    },function(e){
-        console.log("Logout Fail "+e);
-    });
+    if(isLogedIn()){
+        rdb.ref(USER_DATA_STORE_RDB).child(getUser().UID).update({
+            isLoggedIn : false
+        });
+        storeMap(USER_DATA_STORE,null);
+        console.log("Logout Success");
+    } else {
+        console.log("Not Logged In")
+    }
 }
 
 

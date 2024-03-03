@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="../../Basic/basics.css">
+  <style>
+    /* Your custom CSS styles here */
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: transparent;
+      background-image: none;
+    }
+    .container {
+        margin-left: 200px;
+      /* max-width: 800px; */
+      /* margin: 50px auto; */
+      padding: 20px;
+      /* background-color: #fff; */
+      border-radius: 10px;
+      /* box-shadow: 0 0 10px rgba(0,0,0,0.1); */
+    }
+    .profile {
+      display: flex;
+      align-items: center;
+    }
+    .profile img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin-right: 20px;
+    }
+    .profile h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+    .profile p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="profile">
+      <img id="profileImg" src="../../Images/profile.png" alt="Profile Picture">
+      <div>
+        <txt id="Name"><h1>...</h1></txt>
+        <p id="role">Role:...</p>
+        <p id="location">Location:...</p>
+        <p id="email">Email:...</p>
+      </div>
+    </div>
+    <h2>About Me</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eu nulla auctor, molestie lectus non, aliquam eros. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Integer porta ipsum nec elit congue, non vehicula nunc vestibulum. Cras nec lectus nisi.</p>
+    <h2>Skills</h2>
+    <ul>
+      <li>HTML</li>
+      <li>CSS</li>
+      <li>JavaScript</li>
+      <li>React</li>
+    </ul>
+  </div>
+  <script src="../../Basic/init.js"></script>
+</body>
+</html>

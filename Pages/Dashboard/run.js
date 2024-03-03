@@ -13,28 +13,53 @@ function hideSideBar(){
 }
 
 
+var enableSidebar = false;
 id("sidebarImg").addEventListener('mouseover', function(){
+    if(enableSidebar)
     showSideBar();
 });
 
 
 id("sidebar").addEventListener('mouseleave', function(){
+    if(enableSidebar)
     hideSideBar();
 });
 
 
-function Navigate(page){
+function Navigate(page,name){
+    if(page == "Profile"){
+        enableSidebar = false;
+        showSideBar();
+    } else {
+        enableSidebar = true;
+    }
+    id("headTitle").innerHTML = name;
+    // console.log(d)
     Loading(true);
     // Create a new iframe element
     var iframe = id('iframe');
     // Set attributes for the iframe
     iframe.src = getPath(page); 
     iframe.frameborder = '0';
-
-    After(500,function(){
-        Loading(false);
-        log(getCurrentPage());
-    })
+    
+    iframe.onload = function() {
+        After(500,function(){
+            Loading(false);
+        })
+    };
 }
 
-Navigate("Home");
+
+Navigate('Profile','Profile Dashboard');
+
+
+
+
+
+
+
+
+
+
+
+
