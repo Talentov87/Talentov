@@ -22,3 +22,18 @@ const rdb = firebase.database();
 //     });
 // }
 
+
+
+async function fetchAWS(path,body) {
+    const url = DB_URL+"/"+path;
+    const headers = {
+        'X-Encrypted-Key': 'gAkhJbEBXzR5CVj2rngd9S1kL+FFAGeAGvkmbIx1CUpvshOXceq80P58/qAKAajz',
+        'Content-Type': 'application/json'
+    };
+    var response = await fetch(url, {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify(body)
+    });
+    return await response.text();
+}

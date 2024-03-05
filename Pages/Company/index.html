@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <link rel="stylesheet" href="../../Basic/basics.css">
+  <style>
+
+
+/* Style for the search container */
+/* Search container styles */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/* Search input styles */
+.search-input {
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  padding: 10px;
+  padding-left: 20px;
+  font-size: 20px;
+  border: 2px solid black; /* Blue; color */
+  border-radius: 25px;
+  width: 40%; /* Adjust the width as needed */
+  /* outline: none; */
+  outline-color: #007bff;
+  /* box-shadow: 0 0 10px 0 rgba(0, 123, 255, 0.5); */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+
+        /* Material Card Styles */
+        .card {
+            display: inline-block;
+            width: 300px;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 4px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            background-color: #f5f5f5;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .card:hover .card-title {
+            color: #ff5722;
+        }
+
+        .card-content {
+            font-size: 16px;
+            color: #555;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-actions {
+            margin-top: 20px;
+        }
+
+        .card-actions a {
+            border-radius: 10px;
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #ff5722;
+            color: #fff;
+            text-decoration: none;
+            margin-right: 10px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .card-actions a:hover {
+            background-color: #2196f3;
+            transform: translateY(-2px);
+        }
+
+
+  </style>
+</head>
+<body>
+  <section id="compsSection">
+    <div class="search-container">
+      <input id="search" type="text" class="search-input" placeholder="Search...">
+    </div>
+    <div id="list">
+      <div class="card" id="tempLoading">
+        <div class="card-title">Loading</div>
+        <div class="card-content">
+            Please wait while we are fetch the data...
+        </div>
+      </div>
+    </div>  
+  </section>
+  
+  <section id="spocsSection">
+
+  </section>
+
+  <script src="../../Basic/init.js"></script>
+</body>
+</html>
