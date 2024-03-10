@@ -211,6 +211,29 @@ function customInpBox(Text, ElementID, value, typ) {
     return text;
 }
 
+function selectBox(Text, ElementID, options) {
+    var text = "<label for='" + ElementID + "' class='inp'><select id='" + ElementID + "'>";
+
+    for (var i = 0; i < options.length; i++) {
+        text += "<option value='" + i + "'>" + options[i] + "</option>";
+    }
+
+    text += "</select><span class='label'>" + Text + "</span><span class='focus-bg'></span></label><br>";
+    return text;
+}
+
+
+function customSelectBox(Text, ElementID, options) {
+    var text = "<label for='" + ElementID + "' class='inp'><select id='" + ElementID + "'>";
+
+    for (var i = 0; i < options.length; i++) {
+        text += "<option value='" + i + "'>" + options[i] + "</option>";
+    }
+
+    text += "</select><span class='label'>" + Text + "</span><span class='focus-bg'></span></label><br>";
+    return text;
+}
+
 
 function getLoader(nameLoader,parentContainer){
     const loader_obj = id(nameLoader)

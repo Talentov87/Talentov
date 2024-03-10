@@ -18,9 +18,14 @@ function getCurrentPage() {
     return localStorage.CurrentlyAtPage;
 }
 
-function Navigate(PageName, OpenInNewWindow, IntContent, QuickSetContent) {
+function Navigate(PageName, OpenInNewWindow, IntContent, QuickSetContent, UrlParameter) {
     QuickSetContent = QuickSetContent ?? {};
     IntContent = IntContent ?? {};
+    UrlParameter = UrlParameter ?? "";
+
+    if(UrlParameter != ""){
+        UrlParameter = "?" + UrlParameter;
+    }
 
     localStorage.setItem("QuickSet", JSON.stringify(QuickSetContent));
     localStorage.setItem(INTENT_SHARABLE, JSON.stringify(IntContent));
@@ -42,7 +47,7 @@ function Navigate(PageName, OpenInNewWindow, IntContent, QuickSetContent) {
     if (PageName == "Close") {
         window.close();
     } else {
-        page_url = URL_DOM + "Pages/" + PageName + "/index.html"
+        page_url = URL_DOM + "Pages/" + PageName + "/index.html"+UrlParameter;
     }
 
     if (OpenInNewWindow == true) {

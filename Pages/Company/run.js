@@ -150,12 +150,7 @@ function createCompany(){
 }
 
 function OnEdit(index){
-    Navigate("Spocs",false,{
-        Comid : companies[index][0],
-        Name : companies[index][1]
-    },{
-        Name : companies[index][1]
-    })
+    Navigate("Spocs",false,{},{},"comid="+companies[index][0]);
 }
 
 function OnDelete(index) {
@@ -183,3 +178,9 @@ function OnDelete(index) {
     });
 }
 
+
+
+function OnOpen(index){
+    Navigate("Jobs",false,{},{},"comid="+companies[index][0]
+    );
+}

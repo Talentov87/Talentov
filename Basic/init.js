@@ -1,6 +1,13 @@
 var path = window.location.pathname.trim().split('/');
 const CURRENT_PAGE = path[path.length - 2];
 
+const searchParams = new URLSearchParams(window.location.search);
+
+const PARAMS_PASSED = {};
+for (const [key, value] of searchParams) {
+    PARAMS_PASSED[key] = value;
+}
+
 const isIndexPage = (CURRENT_PAGE=='');
 console.log((isIndexPage? "Index" : CURRENT_PAGE) + " Page");
 

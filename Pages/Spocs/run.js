@@ -2,7 +2,18 @@
 
 var job_states_and_spocs_for_all = {};
 
+const COMID = PARAMS_PASSED["comid"];
+var COMP_NAME = "";
+
 async function init(){
+    let company = await fetchAWS('sql/company/get',{
+        "COLUMNS": "Name",
+        "CONDITION": "WHERE id="+COMID,
+    });
+    COMP_NAME = company[1][0];
+    id("CompTitle").innerHTML = COMP_NAME;
+
+    
     search("");
 }
 
@@ -46,7 +57,7 @@ async function search(txt){
 
     spocs = await fetchAWS('sql/spoc/get',{
         "COLUMNS": "id,Name,Mail,Comid",
-        "CONDITION": "WHERE Comid = '"+Intent["Comid"]+"' and (NAME LIKE '%"+txt+"%' or Mail LIKE '%"+txt+"%')",
+        "CONDITION": "WHERE Comid = '"+COMID+"' and (NAME LIKE '%"+txt+"%' or Mail LIKE '%"+txt+"%')",
     });
 
     let html_text = "";
@@ -104,7 +115,7 @@ function AddNewSpoc(){
                 "DATA":{
                     "Name":Name,
                     "Mail":Mail,
-                    "Comid":Intent["Comid"]
+                    "Comid":COMID
                 }
             });
 
@@ -130,7 +141,7 @@ function AddNewSpoc(){
 }
 
 function OnSpocDelete(index) {
-    Dialog("Delete Spoc!","Are you sure to delete "+spocs[index][1]+" spoc for "+Intent["Name"]+" Company?",["Confirm","Cancel"],async function(opt){
+    Dialog("Delete Spoc!","Are you sure to delete "+spocs[index][1]+" spoc for "+COMP_NAME+" Company?",["Confirm","Cancel"],async function(opt){
         if(opt == "Confirm"){
 
             Loading(true)
