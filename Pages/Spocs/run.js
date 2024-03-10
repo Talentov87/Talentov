@@ -75,56 +75,6 @@ id("BackButton").addEventListener("click", function() {
 
 
 //Spoc Add
-function AddNewSpoc1(){
-
-    let Name = id("tid1").value.trim();
-    let Mail = id("tid2").value.trim();
-
-    if(Name == "" || Mail == ""){
-        Toast("Please Fill Name And Email Fields");
-        return;
-    }
-
-    Dialog("New Spoc!","Are you sure to add new spoc for "+Intent["Name"]+" Company?",["Confirm","Cancel"],async function(opt){
-        if(opt == "Confirm"){
-            const tempID = Date.now().toString();
-
-            // const tempData = {
-            //     Name: id("tid1").value.trim(),
-            //     Mail: id("tid2").value.trim(),
-            //     Comid: Data.id
-            // };
-
-            Loading(true)
-
-            var success = await fetchAWS('sql/spoc/store',{
-                "ID":tempID,
-                "DATA":{
-                    "Name":id("tid1").value.trim(),
-                    "Mail":id("tid2").value.trim(),
-                    "Comid":Intent["Comid"]
-                }
-            });
-
-            id("tid1").value = "";
-            id("tid2").value = "";
-            Loading(false)
-
-
-            if(success == "ok"){
-                Toast("Spoc Added");
-            } else {
-                Toast("Something Went Wrong");
-                Dialog("Error Occured!","Contact the developer, ERROR!",["Ok"]);
-            }
-            search("");
-        } else {
-
-        }
-    });
-
-}
-
 function AddNewSpoc(){
     let inputElements = [customInpBox("Spoc Name", "spocName","","text"),customInpBox("Spoc E-mail", "spocMail","","text")];
     inputDialog("New Spoc!",inputElements,["Create","Cancel"],async function onButtonClicked(opt,closeCallback){
