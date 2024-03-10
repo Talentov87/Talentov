@@ -13,7 +13,6 @@
 .search-container {
     display: flex;
     align-items: center;
-    text-align: center;
     margin-top: 20px;
 }
 
@@ -29,8 +28,8 @@
   /* outline: none; */
   outline-color: #007bff;
   /* box-shadow: 0 0 10px 0 rgba(0, 123, 255, 0.5); */
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
         /* Material Card Styles */
@@ -88,23 +87,52 @@
             transform: translateY(-2px);
         }
 
-
   </style>
 </head>
 <body>
+  <img id="BackButton" src="../../Images/back.png" width="50px" height="50px" style="margin: 5px;">
+  <section id="compsSection">
     <div class="search-container">
-      <input id="search" type="text" autocomplete="off" class="search-input" placeholder="Search...">
-      <button id="createCompany" class="addButton">Create New Company</button>
+      <input id="search" type="text" autocomplete="off" class="search-input" placeholder="Search..." style="margin-left: 20%;margin-right: 2%;">
+      <button onclick="AddNewSpoc()" class='buttons addButton'
+              style="height: fit-content;width: 20%;text-align: center;font-size: larger;">Add Spoc</button>
     </div>
+      <!--  -->
+      <div style="margin: auto;text-align: center;">
+          <u>
+              <h1 id="CompTitle">...</h1>
+              <script>
+                document.getElementById("CompTitle").innerHTML = JSON.parse(localStorage.getItem("QuickSet"))["Name"];
+              </script>
+          </u>
+      </div>
+<!-- 
+      <div style="display: flex;margin-top: 20px;">
+          <div id="inp1" style="width: 30%;margin-top: 4px;margin-right: 2.5%;margin-left: 2.5%;"></div>
+          <div id="inp2" style="width: 30%;margin-top: 4px;margin-right: 2.5%;margin-left: 2.5%;"></div>
+          <button onclick="AddNewSpoc()" class='buttons addButton'
+              style="height: fit-content;width: 15%; margin: auto; text-align: center;font-size: larger;">Add Spoc</button>
+      </div> -->
+      
     <div id="list">
-      <div class="card" id="tempLoading">
-        <div class="card-title">Loading</div>
-        <div class="card-content">
-            Please wait while we are fetch the data...
+      <div id="spocsDiv" class="tablediv" style="margin-bottom: 10%;padding: 20px;">
+        <div class="card" id="tempLoading">
+          <div class="card-title">Loading</div>
+          <div class="card-content">
+              Please wait while we are fetch the data...
+          </div>
         </div>
       </div>
+      <!--  -->
+      
     </div>  
+
+  </section>
   
+  <section id="spocsSection">
+
+  </section>
+
   <script src="../../Basic/init.js"></script>
 </body>
 </html>

@@ -30,10 +30,34 @@ async function fetchAWS(path,body) {
         'X-Encrypted-Key': 'gAkhJbEBXzR5CVj2rngd9S1kL+FFAGeAGvkmbIx1CUpvshOXceq80P58/qAKAajz',
         'Content-Type': 'application/json'
     };
-    var response = await fetch(url, {
-        method: 'POST',
-        headers: headers,
-        body: JSON.stringify(body)
-    });
-    return await response.text();
+    if(body == undefined){
+        var response = await fetch(url, {
+            method: 'GET',
+            headers: headers
+        });
+        const responseBody = await response.text();
+        try {
+            // Attempt to parse the response body as JSON
+            return JSON.parse(responseBody);
+        } catch (error) {
+            // Handle JSON parsing error or return the response body as is
+            return responseBody;
+        }
+        
+    } else {
+        var response = await fetch(url, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(body)
+        });
+        const responseBody = await response.text();
+        try {
+            // Attempt to parse the response body as JSON
+            return JSON.parse(responseBody);
+        } catch (error) {
+            // Handle JSON parsing error or return the response body as is
+            return responseBody;
+        }
+    }
+    
 }

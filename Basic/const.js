@@ -7,7 +7,7 @@ const QuickSet = parse("QuickSet");
 const Intent = parse(INTENT_SHARABLE);
 
 const DB_PROTOCALL = "http";
-const DB_DOMAIN = "ec2-13-233-48-9.ap-south-1.compute.amazonaws.com";
+const DB_DOMAIN = "ec2-43-205-140-144.ap-south-1.compute.amazonaws.com";
 const DB_PORT = "5000";
 
 const DB_URL = DB_PROTOCALL + "://" + DB_DOMAIN + ":" + DB_PORT;

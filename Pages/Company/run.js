@@ -1,46 +1,18 @@
 
-function parseDataString(dataString, callback) {
-    if(dataString == "[]"){
-        return [];
-    }
-    const data = [];
-    let start = 1; // Start index to slice the string
-    let end = dataString.indexOf("), ("); // End index of the first tuple
-    let index = 0;
-    // Loop until there are no more tuples
-    while (end !== -1) {
-        // Extract the tuple string
-        const tupleStr = dataString.slice(start, end);
-        
-        // Parse the tuple string and add it to the data array
-        const columns = tupleStr.slice(1,-1).split("', '");
-        if(columns != undefined){
-            data.push(columns);
-            callback(index,columns);
-            index++;
-        }
 
-        // Update start and end indexes for the next iteration
-        start = end + 4;
-        end = dataString.indexOf("), (", start);
-    }
+var job_states_and_spocs_for_all = {};
 
-    // Process the last tuple
-    const lastTupleStr = dataString.slice(start, -1);
-    const lastColumns = lastTupleStr.slice(2, -2).split("', '");
-    if(lastColumns != undefined){
-        data.push(lastColumns);
-        callback(index,lastColumns);
-        index++;
-    }
-    return data;
-}
-
+const html_loading = `<div class="card" id="tempLoading">
+<div class="card-title">Loading</div>
+<div class="card-content">
+    Please wait while we are fetch the data...
+</div>
+</div>`;
 
 
 async function init(){
-    search("")
-    // console.log(data);
+    job_states_and_spocs_for_all = await fetchAWS('sql/company/get_job_states_and_spocs_for_all');
+    await search("");
 }
 
 
@@ -62,21 +34,152 @@ function makeCard(Title, Content, i, AnimTime) {
     `;
 }
 
+
+var companies = [];
 async function search(txt){
-    var resp = await fetchAWS('sql/company/get',{
+    
+    id("list").innerHTML = html_loading;
+
+    companies = await fetchAWS('sql/company/get',{
         "COLUMNS": "ID,NAME",
-        "WHERE": "NAME LIKE '%"+txt+"%'",
+        "CONDITION": "WHERE NAME LIKE '%"+txt+"%'",
     });
 
-    id("list").innerHTML = "";
+    let html_text = ""
 
-    const data = parseDataString(resp,function(index,columns){
-        log(index)
-        id("list").innerHTML += makeCard(columns[1],"Add Spocs And Jobs For This Company!",index,1);
-    });
+    for (let index = 1; index < companies.length; index++) {
+        const element = companies[index];
+
+        const job_states_and_spocs = job_states_and_spocs_for_all[element[0]]
+
+        var atxt="",htxt="",ctxt="",ttxt="",utxt="";
+
+
+        try {
+            atxt = (job_states_and_spocs["active"] == 0 ? "" : job_states_and_spocs["active"] + "-Active ");
+            htxt = (job_states_and_spocs["hold"] == 0 ? "" : job_states_and_spocs["hold"] + "-Hold ");
+            ctxt = (job_states_and_spocs["closed"] == 0 ? "" : job_states_and_spocs["closed"] + "-Closed ");
+            ttxt = (job_states_and_spocs["unset"] == 0 ? "" : job_states_and_spocs["unset"] + "-Unset ");
+            utxt = (job_states_and_spocs["total"] == 0 ? "" : job_states_and_spocs["total"] + "-Total");
+        } catch (error) {}
+        
+        var text1 = atxt + htxt + ctxt + ttxt + utxt;
+        var text2 = "";
+
+        var spocsForComp = [];
+        try {
+            spocsForComp = job_states_and_spocs["spocs"];
+        } catch (error) {}
+
+
+        for (let indexj = 0; indexj < spocsForComp.length; indexj++) {
+            const spoc = spocsForComp[indexj];
+            let spocName = spoc[0];
+
+            if (indexj == 0) {
+                indexj++;
+            } else {
+                text2 += ", ";
+            }
+            text2 += spocName;
+        }
+        
+        var text = text1 + "<br>" + text2;
+
+        if (text == "<br>") {
+            text = "Add Spocs And Jobs For This Company!";
+        }
+
+        html_text += makeCard(element[1],text,index,1);
+    }
+
+    id("list").innerHTML = html_text;
+
 
 }
+
 
 id("search").addEventListener("input", function() {
     search(id("search").value);
 });
+
+id("createCompany").addEventListener("click", function() {
+    createCompany();
+});
+
+function createCompany(){
+    let inputElements = [customInpBox("Company Name", "compName","","text")];
+    inputDialog("New Company!",inputElements,["Create","Cancel"],async function onButtonClicked(opt,closeCallback){
+        if(opt == "Create"){
+            let compName = id("compName").value.trim();
+            if(compName == ""){
+                Toast("Please Enter Company Name");
+                return;
+            }
+            Loading(true);
+            
+            const tempID = Date.now().toString();
+
+            var success = await fetchAWS('sql/company/store',{
+                "ID":tempID,
+                "DATA":{
+                    "NAME":compName
+                }
+            });
+
+            id("compName").value = "";
+            closeCallback();
+            
+            await search("");
+            Loading(false);
+
+
+            if(success == "ok"){
+                Toast("Company Added");
+            } else {
+                Toast("Something Went Wrong");
+                Dialog("Error Occured!","Contact the developer, ERROR!",["Ok"]);
+            }
+
+
+
+        } else {
+            closeCallback();
+        }
+    });
+}
+
+function OnEdit(index){
+    Navigate("Spocs",false,{
+        Comid : companies[index][0],
+        Name : companies[index][1]
+    },{
+        Name : companies[index][1]
+    })
+}
+
+function OnDelete(index) {
+    Dialog("Delete Company!","Are you sure to delete "+companies[index][1]+" Company? This will lead to many kind of data lose!!!",["Confirm","Cancel"],async function(opt){
+        if(opt == "Confirm"){
+
+            Loading(true)
+            var success = await fetchAWS('sql/company/delete',{
+                "CONDITION":"ID = '"+companies[index][0]+"'"
+            });
+
+            Loading(false)
+
+
+            if(success == "1"){
+                Toast("Company Deleted");
+            } else {
+                Toast("Something Went Wrong");
+                Dialog("Error Occured!","Contact the developer, ERROR!",["Ok"]);
+            }
+            search("");
+        } else {
+
+        }
+    });
+}
+

@@ -31,6 +31,10 @@ function style(eid,ele,value) {
     id(eid).style[ele] = value;
 }
 
+function html(eid,val){
+    id(eid).innerHTML = val;
+}
+
 function animateValue(start, end, duration, onUpdate, onComplete) {
     let startTime;
 
@@ -115,6 +119,96 @@ function Dialog(title, description, buttons, onclick) {
     });
     
     document.body.appendChild(dialog);
+}
+
+function inputDialog(title, inputElements, buttons, onclick) {
+    
+    var br = document.createElement("br");
+
+    // Create overlay
+    var overlay = document.createElement("div");
+    overlay.classList.add("overlay");
+    overlay.onclick = function(){}
+    document.body.appendChild(overlay);
+    
+    // Create dialog
+    var dialog = document.createElement("div");
+    dialog.classList.add("dialog");
+    
+    var titleElem = document.createElement("h2");
+    titleElem.textContent = title;
+    dialog.appendChild(titleElem);
+    
+    var descElem = document.createElement("div");
+    dialog.appendChild(descElem);
+
+    inputElements.forEach(function(inputElement) {
+        descElem.innerHTML += inputElement;
+        descElem.appendChild(br);
+    });
+
+    var buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("buttons");
+    dialog.appendChild(br);
+    dialog.appendChild(br);
+    dialog.appendChild(buttonContainer);
+    
+    buttons.forEach(function(button) {
+        var buttonElem = document.createElement("button");
+        buttonElem.textContent = button;
+        buttonElem.addEventListener("click", function() {
+            function closeCallback(){
+                document.body.removeChild(dialog);
+                document.body.removeChild(overlay);
+            }
+            if(typeof onclick === 'function') onclick(button,closeCallback)
+            else closeCallback();
+        });
+        buttonContainer.appendChild(buttonElem);
+    });
+    
+    document.body.appendChild(dialog);
+}
+
+
+//input box
+function inpBox(Text, ElementID, typ, rows, columns) {
+    if (typ == "number") {
+        typeOfElement = typ;
+    } else {
+        typeOfElement = "text";
+    }
+
+    var inputElement;
+    if (typ == "multiline") {
+        inputElement = "<textarea id='" + ElementID + "' rows='" + rows + "' columns='" + columns + "' placeholder=''></textarea>";
+    } else {
+        inputElement = "<input type='" + typeOfElement + "' id='" + ElementID + "' placeholder=''>";
+    }
+
+    var text = "<label for='" + ElementID + "' class='inp'>" +
+        inputElement +
+        "<span class='label'>" + Text + "</span><span class='focus-bg'></span></label><br>";
+
+    return text;
+}
+
+function customInpBox(Text, ElementID, value, typ) {
+    if (typ == "string") {
+        return "<label for='np' class='inp'><input class='noSpinners' type='" + "text" + "' id='" + ElementID + "' placeholder='&nbsp;' value='" + value + "'><span class='label'>" + Text + "</span><span class='focus-bg'></span></label><br>"
+    } if (typ == "date") {
+        return "<label for='np' class='inp'><input class='noSpinners' type='" + "date" + "' id='" + ElementID + "' placeholder='&nbsp;' value='" + value + "'><span class='label'>" + Text + "</span><span class='focus-bg'></span></label><br>"
+    } if (typ == "time") {
+        return "<label for='np' class='inp'><input class='noSpinners' type='" + "time" + "' id='" + ElementID + "' placeholder='&nbsp;' value='" + value + "'><span class='label'>" + Text + "</span><span class='focus-bg'></span></label><br>"
+    } if (typ == "number") {
+        return "<label for='np' class='inp'><input class='noSpinners' type='" + "number" + "' id='" + ElementID + "' placeholder='&nbsp;' value='" + value + "'><span class='label'>" + Text + "</span><span class='focus-bg'></span></label><br>"
+    } if (typ == "phone") {
+        return "<label for='np' class='inp'><input class='noSpinners' type='" + "tel" + "' maxlength='15' id='" + ElementID + "' placeholder='&nbsp;' value='" + value + "'><span class='label'>" + Text + "</span><span class='focus-bg'></span></label><br>"
+    } else {
+        typeOfElement = "text";
+    }
+    var text = "<label for='np' class='inp'><input class='noSpinners' type='" + typeOfElement + "' maxlength='200' id='" + ElementID + "' placeholder='&nbsp;' value='" + value + "'><span class='label'>" + Text + "</span><span class='focus-bg'></span></label><br>"
+    return text;
 }
 
 
