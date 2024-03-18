@@ -25,34 +25,14 @@ const COMID = PARAMS_PASSED["comid"];
 
 
 async function init(){
-    let company = await fetchAWS('sql/company/get',{
-        "COLUMNS": "Name",
-        "CONDITION": "WHERE id="+COMID,
-    });
-    id("CompTitle").innerHTML = company[1][0];
-
-
-
-    let AllUsers = await fetchAWS('sql/users/get',{
-        "COLUMNS": "id,Name",
-        "CONDITION": "",
-    });
-
-    // log(AllUsers)
-
-    AllUsers.splice(0,1);
-
-    AllUsers.forEach(rec => {
-        AllUserNamesObj[rec[0]] = rec[1];
-    });
-
-    spocs = await fetchAWS('sql/spoc/get',{
-        "COLUMNS": "id,NAME,Mail,Comid",
-        "CONDITION": "WHERE Comid='"+COMID+"'",
-    });
     
-    spocs.splice(0, 1);
+    const INIT_DATA =  await fetchAWS('sql/jobs/jobs_init_data',{
+        "COMID": COMID
+    });
 
+    id("CompTitle").innerHTML = INIT_DATA["company"];
+    AllUserNamesObj = INIT_DATA["AllUserNamesObj"];
+    spocs = INIT_DATA["spocs"];
     spocs.forEach(rec => {
         AllSpocsNameObj[rec[0]] = rec[1];
     });
@@ -100,13 +80,15 @@ var jobs = [];
 const statList = ["Active", "Closed", "Hold"];
 
 async function search(txt){
-    
+
     id("list").innerHTML = html_loading;
 
     jobs = await fetchAWS('sql/jobs/get',{
         "COLUMNS": "id,Description,Name,Opening,Comid,Closed,Status,UserList,Comment,Spocid,CreatedBy,CreatedOn,CreatedOnMS",
         "CONDITION": "WHERE Comid='"+COMID+"' and NAME LIKE '%"+txt+"%'",
     });
+    
+    
 
     let html_text = ""
 

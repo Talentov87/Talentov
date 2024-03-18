@@ -181,6 +181,5 @@ function OnDelete(index) {
 
 
 function OnOpen(index){
-    Navigate("Jobs",false,{},{},"comid="+companies[index][0]
-    );
+    Navigate("Jobs",false,{},{},"comid="+companies[index][0]);
 }

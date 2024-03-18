@@ -7,13 +7,18 @@ const QuickSet = parse("QuickSet");
 const Intent = parse(INTENT_SHARABLE);
 
 const DB_PROTOCALL = "http";
-const DB_DOMAIN = "ec2-43-205-140-144.ap-south-1.compute.amazonaws.com";
+// const DB_PROTOCALL = "https";
+
+// const DB_DOMAIN = "ec2-43-205-140-144.ap-south-1.compute.amazonaws.com";
+// const DB_DOMAIN = "jay-python-aws-server.in.net";
+const DB_DOMAIN = "localhost";
+
 const DB_PORT = "5000";
 
 const DB_URL = DB_PROTOCALL + "://" + DB_DOMAIN + ":" + DB_PORT;
 
 
-
+console.log("Server  : "+ DB_URL);
 
 
 

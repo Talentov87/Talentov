@@ -22,30 +22,18 @@ var spocs = [];
 var AllUserNamesObj = {};
 
 async function init(){
-    JOB_DETAIL = await fetchAWS('sql/jobs/get',{
-        "COLUMNS": "id,Name,Comid,Description,Opening,Closed,Status,UserList,Comment,Spocid,CreatedBy,CreatedOn,CreatedOnMS",
-        "CONDITION": "WHERE id="+JOBID,
+    const INIT_DATA =  await fetchAWS('sql/jobs/job_init_data',{
+        "JOBID": JOBID
     });
 
-    JOB_DETAIL.splice(0,1);
-    JOB_DETAIL = JOB_DETAIL[0];
-    COMID = JOB_DETAIL[2];
+    JOB_DETAIL = INIT_DATA["JOB_DETAIL"];
+    COMID = INIT_DATA["COMID"];
+    COMP_NAME = INIT_DATA["COMP_NAME"];
+    spocs = INIT_DATA["spocs"];
+    AllUsers = INIT_DATA["AllUsers"];
 
-    let company = await fetchAWS('sql/company/get',{
-        "COLUMNS": "Name",
-        "CONDITION": "WHERE id="+COMID,
-    });
-    COMP_NAME = company[1][0];
     id("CompTitle").innerHTML = COMP_NAME + " > "+ JOB_DETAIL[1];
     // search("");
-
-
-    spocs = await fetchAWS('sql/spoc/get',{
-        "COLUMNS": "id,NAME,Mail,Comid",
-        "CONDITION": "WHERE Comid='"+COMID+"'",
-    });
-    
-    spocs.splice(0, 1);
 
     let spocsIdsTemp = [];
     let spocsNamesTemp = [];
@@ -77,14 +65,6 @@ async function init(){
     id("tid6").value = JOB_DETAIL[8];
     id("tid7").value = JOB_DETAIL[9];
     
-    let AllUsers = await fetchAWS('sql/users/get',{
-        "COLUMNS": "id,Name",
-        "CONDITION": "",
-    });
-
-    // log(AllUsers)
-
-    AllUsers.splice(0,1);
 
     AllUsers.forEach(rec => {
         AllUserNamesObj[rec[0]] = rec[1];
